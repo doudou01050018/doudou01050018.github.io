@@ -3,7 +3,7 @@ name: Deploy Quartz site to GitHub Pages
 on:
   push:
     branches:
-      - main  # 如果之后发现默认分支是 v4，这里要改成 v4
+      - v5  # 如果之后发现默认分支是 v4，这里要改成 v4
   workflow_dispatch:
 
 permissions:
