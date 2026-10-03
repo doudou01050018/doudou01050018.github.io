@@ -22,7 +22,9 @@ publish: true
 $$
 \begin{aligned} P\left( \bigcap\limits_{i=1}^n\{y(\mathbf x_i)=y_i\}\mid\mathbf w \right) &= \prod\limits_{i=1}^nP(y(\mathbf x_i)=y_i\mid\mathbf w) \qquad\text{(默认独立同分布)} \\ &= \prod\limits_{i=1}^n[\sigma(f(\mathbf x_i))]^{y_i}[1-\sigma(f(\mathbf x_i))]^{1-y_i} \end{aligned}
 $$
-取对数：$$
+
+取对数：
+$$
 \begin{aligned} L(\mathbf  w) &= -\ln P(X\mid\mathbf w) \\&= -\sum\limits_{i=1}^ny_i\ln\sigma(f(\mathbf x_i))+(1-y_i)\ln(1-\sigma(f(\mathbf x_i))) \end{aligned}
 $$
 （这被称为交叉熵损失 Cross Entropy Loss / CELoss，是信息论的内容）
@@ -105,7 +107,8 @@ $K=2$ 的时候，假设 $1$ 为正类，$2$ 为负类，则
  &\text{let } b = b_1-b_2, \mathbf{w}= \mathbf{w}_1-\mathbf{w}_2,\\
  &= \frac{1}{1+\exp(\mathbf{w}^T\mathbf{x}+b)} = \sigma(\mathbf{w}^T\mathbf{x}+b)
  \end{aligned}
- $$这等价于逻辑回归。
+ $$
+ 这等价于逻辑回归。
 
 ## $\mathrm{IV}$ 几个统计估计方法的应用
 ### $\it 4.1$ MLE 方法解释线性回归
