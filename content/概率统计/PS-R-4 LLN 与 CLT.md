@@ -39,7 +39,8 @@ publish: true
 ### $\it 3.2$ 大数定律的一般形式
 扩展到一般形式，有一列随机变量 $\{X_n\}$，若满足对任意 $\varepsilon>0$，有
 $$
-\lim\limits_{n\to\infty}P\left(\left|\dfrac1n\sum\limits_{i=1}^nX_i-\dfrac1n\sum\limits_{i=1}^nE(X_i)\right|<\varepsilon\right)=1$$
+\lim\limits_{n\to\infty}P\left(\left|\dfrac1n\sum\limits_{i=1}^nX_i-\dfrac1n\sum\limits_{i=1}^nE(X_i)\right|<\varepsilon\right)=1
+$$
 则称其（随机变量序列 $\{X_n\}$）**服从大数定律**。给定不同的约束条件，可以得到不同版本的大数定律。
 - 下称 $\mathrm{bias}:=\dfrac1n\sum\limits_{i=1}^n X_i-\dfrac1n\sum\limits_{i=1}^n E(X_i)$。
 #### $\it 3.2.1$ Chebyshev 大数定律
