@@ -1,9 +1,11 @@
 ---
 publish: true
 ---
-
-# 数学分析1 笔记 (1)
+#数分1 
+# 数学分析1 笔记 (1) 序列极限与函数极限
 有了集合论、实数构造等一系列准备工作，我们得以进入实分析的第一个定义：极限。并由此介绍**实数系中的重要基本定理**，其均为完备公理的直接推论。
+
+对应 101 教材：Ch3, 4
 ## $\mathrm{III}$ 序列极限
 ### $\it 3.0$ Intro
 离散数学是**可列的**，因此列表不但是性质，也是研究问题的重要方法：将研究的元素按照列表列出来，如 $x_1, x_2, \cdots$，这衍生出列表、数据结构、自动机等。但在实分析的主舞台——$\mathbb R$，不存在这样的列表结构（不可列），我们只能关注元素之间的**结构关系**（例如**序关系**）。为此有了基于逻辑严格定义的**极限**。
@@ -142,6 +144,25 @@ $$
 - 证明。假设 $\lim\limits_{x\to a^+}f(x)\neq A$，则存在 $\varepsilon_0>0$ 使得任意 $(a, a+\delta)$ 里面都存在 $x\in(a, a+\delta)\land|f(x)-A|\ge\varepsilon_0$。那么对 $\left( a, a+\dfrac1n \right)$ 取满足这样性质的 $x_n$，由于 $f(x)$ 有界，所以 $\{f(x_n)\}$ 有界，因此存在收敛子列（致密性定理）。不妨设其自身收敛，则根据假设有 $\lim\limits_{n\to\infty}f(x_n)=A$，这与 $|f(x_n)-A|\ge\varepsilon_0$ 矛盾，假设不成立。
 ### $\it 4.3$ 若干重要极限
 $\lim\limits_{n\to\infty}\left( 1+\dfrac1n \right)^n$ 的连续化。一定成立 $\left( 1+\dfrac1{[x]+1} \right)^{[x]}<\left( 1+\dfrac1x \right)^x<\left( 1+\dfrac1{[x]} \right)^{[x]+1}$。其中前后夹逼收敛到 $e$。从而有 $\lim\limits_{x\to\infty}\left( 1+\dfrac1x \right)^x=e$。
+- 等价于：$\lim\limits_{x\to 0}(1+x)^{\frac1x}=e$。
+- 等价于：$\lim\limits_{x\to 0}\dfrac{\ln(1+x)}{x}=1$。
+
+$\lim\limits_{x\to 0}\dfrac{\sin x}{x}=1$。目前按照几何的定义证明。
+### $\it N$ 若干 $\mathbb R$ 的拓扑概念
+设 $A\subseteq\mathbb R$。
+- 内点。对 $x$ 若存在 $\delta>0$ 使得 $U(x, \delta)\subset A$，则称 $x$ 是 $A$ 的内点。
+	- $A$ 的全体内点被称为 $A$ 的**内部**，记作 $A^\circ$。
+- 外点。对 $x$ 若存在 $\delta>0$ 使得 $U(x, \delta)\cap A=\varnothing$，则称 $x$ 是 $A$ 的外点。
+- 边界。若 $x$ 既不是内点，也不是外点，那么 $x$ 是 $A$ 的边界点，边界点的全体称为 $A$ 的边界，记作 $\partial A$。
+- 聚点、导集。若任意 $\delta>0$，均有 $A\cap U(x, \delta)$ 是无限集，则称 $x$ 是 $A$ 的聚点。$A$ 的全体聚点成为 $A$ 的导集，记作 $A'$。
+	- 定理：若对任意 $\delta>0$，$U(x, \delta)$ 内均存在 $A$ 中异于 $x$ 的点，则 $x$ 是 $A$ 的聚点。（证明：任取 $\delta_1>0$，存在 $x_1$，取 $\delta_2=|x-x_1|$ 得到 $x_2$ 的存在，以此类推）
+- 孤立点。对 $x$ 若存在 $\delta>0$ 使得 $A\cap U(x, \delta)=\{x\}$，则称 $x$ 是 $A$ 的孤立点。
+- 开集。若 $A=A^\circ$，则称 $A$ 是开集。
+- 闭集。若 $A$ 包含其所有聚点（$A'\subseteq A$），则称 $A$ 是闭集。
+	- 闭集的等价定义：$\partial A\subseteq A$、$\mathbb R-A$ 是开集，以及“$A$ 中任意收敛点列的极限均属于 $A$”。
+	- 第三条的证明：必要性，若 $A$ 是闭集，则任取 $A$ 内部收敛点列 $\lim\limits_{n\to\infty}x_n=L$，那么 $\{x_n\}\cap U(L, \varepsilon)$ 是无穷集（根据极限定义，存在 $N$ 使得 $\{x_k\mid k\ge N\}\subseteq U(L, \varepsilon)$），故 $L$ 是 $A$ 的聚点，故 $L\in A$。充分性，任取 $A$ 的一个聚点 $a$，那么 $A\cap U(a, \varepsilon)$ 是无穷集，故存在 $A$ 中的收敛点列 $\lim\limits_{n\to\infty}x_n=a$。因此根据假设，$a\in A$。
+- 任意个开集的并是开集，任意个闭集的交是闭集。
+- 任意有限个开集的交是开集，任意有限个闭集的并是闭集。
 - 等价于：$\lim\limits_{x\to 0}(1+x)^{\frac1x}=e$。
 - 等价于：$\lim\limits_{x\to 0}\dfrac{\ln(1+x)}{x}=1$。
 
