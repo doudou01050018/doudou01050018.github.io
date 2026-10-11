@@ -25,7 +25,7 @@ publish: true
 - 暂时不给出其证明，这是因为依分布收敛只要求其分布函数的形状长得一样，而不对随机变量之间的相关性有任何要求。而依概率收敛就是强得多的性质，其要求两者的差距为在概率测度下几乎一定为零。
 	- 例如 $X_1=-X_2$ 是一对有约束的随机变量，只要 $X_1$ 的分布函数是对称的，那么 $F_1(x)=F_2(x)$。于是 $X_2\xrightarrow L X_1$，即依分布收敛成立。但实际上 $|X_2-X_1|$ 完全不趋于 $0$。或者即便同分布的 $X_1, X_2$ 独立，其 $|X_1-X_2|$ 也没有任何保障。
 - 特例：$X_n\xrightarrow Pc\iff X_n\xrightarrow Lc$。
-## $\mathrm{II}$ 大数定律：概率是频率的极限
+## $\mathrm{II}$ 大数定律 LLN：概率是频率的极限
 回到第一章的笔记，彼时我们只基于测度公理规定了概率的运算规则，而并没有赋予其任何实际意义（并没有强制任何人以任何形式怎样理解概率）。实际上，在概率的数学化定义中，也从来就不涉及这一点，但是概率公理可以导出一些“理所应当”而非常符合实际认知的结论。
 
 接下来我们来通过严格的数学推导，看看大数定律是如何被概率公理导出的，以及如此被规范定义的概率为何能被用于指导实际决策。
@@ -51,13 +51,15 @@ Chebyshev 大数定律。设 $\{X_n\}$ 为一列两两不相关的随机变量�
 Markov 大数定律。在 Chebyshev 大数定律的证明中，$\mathrm{Var}\left( \dfrac1n\sum\limits_{i=1}^nX_i \right)\to 0$ 是右侧放缩成立的根本条件，在 Chebyshev 大数定律中由 $\mathrm{Var}(X_i)\le c$ 保证。
 - 称 **Markov 条件** 为 $\lim\limits_{n\to\infty}\mathrm{Var}\left( \dfrac1n\sum\limits_{i=1}^nX_i \right)=0$。若 Markov 条件成立，则 Chebyshev 大数定律自动成立，此时称其为 **Markov 大数定律**。
 - Markov 大数定律是一种更普遍的情形，要求 $X_i$ 的方差都存在，对于 $X_i$ 的同分布、独立性、不相关性等没有要求。
-#### $\it 3.3$ Khinchin 大数定律
+#### $\it 3.2.3$ Khinchin 大数定律
 Khinchin 大数定律。设 $\{X_n\}$ 是独立、同分布的随机变量序列，若 $E(X_i)$ 存在，则 $\{X_n\}$ 服从大数定律。
 ## $\mathrm{III}$ 中心极限定理 CLT：必然的正态分布
 一句话总结，若有一系列大量、微小的随机扰动（满足某条件），则其总影响即为正态分布。
 ### $\it 4.1$ Lindeberg-Levy CLT
 **Lindeberg-Levy CLT**。设 $\{X_n\}$ 是独立、同分布的随机变量序列，$E(X_i)=\mu$，$\mathrm{Var}(X_i)=\sigma^2>0$，则 $\dfrac{\sum\limits_{i=1}^nX_i-n\mu}{\sqrt n\sigma}\xrightarrow LN(0,1)$。
 - 证明采用了特征函数。设 $Y_n:=\sum\limits_{i=1}^nX_i$，$Y_n^*:=\dfrac{Y_n-E(Y_n)}{\sqrt{\mathrm{Var}(Y_n)}}$，且单个 $X_i-\mu$ 的特征函数为 $\varphi(t)$。那么 $\varphi_{Y_n^*}=\left[\varphi\left( \dfrac t{\sigma\sqrt n} \right)\right]^n$。因为 $E(X_i-\mu)=0$，$\mathrm{Var}(X_i-\mu)=\sigma^2$，所以 $\varphi'(0)=0$，$\varphi''(0)=-\sigma^2$。所以 Taylor 展开得到 $\varphi(t)=1-\dfrac12\sigma^2t^2+o(t^2)$。故 $\lim\limits_{n\to\infty}\varphi_{Y_n^*}(t)=\lim\limits_{n\to\infty}\left[1-\dfrac{t^2}{2n}+o\left( \dfrac{t^2}n \right)\right]^n=\exp\left( -\dfrac{t^2}2 \right)$。这正是 $\mathit N(0, 1)$ 的特征函数。
+
+CLT 的一个重要应用是用来估计大量样本的近似计算。在 Lindeberg-Levy CLT 中，只要 $X_i$ 满足 i.i.d，那么在 $n$ 足够大的时候即可用正态分布来近似计算。
 ### $\it 4.2$ 二项分布的正态近似
 **de Moivre-Laplace CLT**（二项分布的正态近似）。在 $n$ 重 Bernoulli 实验中，若 $S_n$ 为 $A$ 发生的次数，$p=P(A)$，则 $\dfrac{S_n-np}{\sqrt{np(1-p)}}\xrightarrow LN(0,1)$。
 - 即：设 $Y_n^*=\dfrac{S_n-np}{\sqrt{np(1-p)}}$，那么 $\lim\limits_{n\to\infty}P(Y_n^*\le\lambda)=\Phi(\lambda)=\begin{aligned} \int_{-\infty}^\lambda\exp\left( -\dfrac{t^2}2 \right){\text d}t \end{aligned}$。
@@ -73,3 +75,34 @@ Lindeberg 中心极限定理。设 $\{X_n\}$ 是相互独立的随机变量序�
 - **Lindeberg 中心极限定理**：设独立随机变量序列 $\{X_n\}$ 满足 Lindeberg 条件，则对任意 $x$ 都满足 $\lim\limits_{n\to\infty}P\left( \dfrac1{B_n}\sum\limits_{i=1}^n(X_i-\mu_i)\le x \right)=\dfrac1{\sqrt{2\pi}}\begin{aligned} \int_{-\infty}^xe^{-\frac{t^2}2}{\text d}t \end{aligned}$。
 
 Lyapnov 中心极限定理。设 $\{X_n\}$ 是独立随机变量序列，若存在 $\delta>0$ 使得 $\lim\limits_{n\to\infty}\dfrac1{B_n^{2+\delta}}\sum\limits_{i=1}^nE(|X_i-\mu_i|^{2+\delta})=0$，则对任意 $x$，满足 $\lim\limits_{n\to\infty}P\left( \dfrac1{B_n}\sum\limits_{i=1}^n(X_i-\mu_i)\le x \right)=\dfrac1{\sqrt{2\pi}}\begin{aligned} \int_{-\infty}^xe^{-\frac{t^2}2}{\text d}t \end{aligned}$。
+## $\mathrm{IV}$ **集中不等式专题** 
+形如 Markov 与 Chebyshev 的不等式成为**集中不等式**。
+### $\it 4.1$ Chernoff 方法
+设 $X$ 为随机变量，$M_X(t):=E(e^{tX})$ 为矩生成函数。
+- 对任意 $t>0$ 与任意 $a$，由 Markov 不等式有 $P(X\ge a)=P(e^{tX}\ge e^{ta})\le e^{-ta}M_X(t)$。
+- 对任意 $t<0$ 与任意 $a$，有 $P(X\le a)=P(e^{tX}\ge e^{ta})\le e^{-ta}M_X(t)$。
+
+通过对 $t$ 取最优值（或对 $t$ 求最小化）可以得到最紧的界，这一方法称为 **Chernoff 方法**（Chernoff 界）。
+### $\it 4.2$ 次高斯
+考察 $U\sim\mathit N(0, 1)$，其尾部 $P(|U|\ge\lambda)\le2\exp\left( -\dfrac{\lambda^2}2 \right)$。称尾部概率衰减速度不慢于 Gauss 的随机变量为**次高斯**。其有两种等价定义：
+1. 若存在 $\sigma>0$ 使得对任意 $u\ge 0$ 有 $P(|X|\ge u)\le2\exp\left( -\dfrac{u^2}{2\sigma^2} \right)$，则 $X$ 是 $\sigma$-次高斯。
+2. （MGF）若存在 $\sigma>0$ 使得任意 $\lambda\in\mathbb R$ 有 $E(e^{\lambda X})\le\exp\left( \dfrac{\lambda^2\sigma^2}2 \right)$，则 $X$ 是 $\sigma$-次高斯。
+- 分析。MGF 中，若 $X\sim\mathit N(0, \sigma^2)$，则 $E(e^{tX})=\exp\left( \dfrac{\sigma^2t^2}{2} \right)$。MGF 要求其期望不超过该值，即尾部不能比正态量“更厚”。
+
+次高斯的性质。
+- 独立和的次高斯。若 $X_1, X_2, \cdots, X_n$ 相互独立且 $X_i$ 为 $\sigma_i$-次高斯，则 $\sum\limits_{i=1}^nX_i$ 是 $\sqrt{\sum\limits_{i=1}^n\sigma_i^2}$-次高斯。
+	- 证明。$E\left( \exp\left( \lambda\sum\limits_{i=1}^nX_i \right) \right)=\prod\limits_{i=1}^nE(\exp(tX_i))\le\prod\limits_{i=1}^n\exp\left( \dfrac{\sigma_i^2t^2}2 \right)=\exp\left( \dfrac{t^2}2\sum\limits_{i=1}^n\sigma_i^2 \right)$。
+- Hoeffding 引理。若 $X\in[a, b]$ 且 $E(X)=0$，则 $X$ 是 $\dfrac{b-a}{2}$-次高斯。
+- 若 $X$ 是 $\sigma$-次高斯，那么 $aX$ 是 $a|\sigma|$-次高斯。
+### $\it 4.3$ Hoeffding 不等式
+Hoeffding 不等式。设 $X_1, X_2, \cdots, X_n$ 是相互独立的随机变量，且 $X_i\in[a_i, b_i]$。令 $S=\sum\limits_{i=1}^nX_i$，则对任意 $t\ge 0$，有 $P(|S-E(S)|\ge t)\le2\exp\left( \dfrac{2t^2}{\sum_{i=1}^n(b_i-a_i)^2} \right)$。
+- 变式：若 $\overline X=\dfrac1nS$，那么 $P(|\overline X-E(\overline X)|\ge nt)\le2\exp\left( \dfrac{2t^2}{\sum_{i=1}^n(b_i-a_i)^2} \right)$。
+- 若 $X_1, X_2, \cdots, X_n$ 是 i.i.d 的，$\mu=E(X_i)$，那么 $P(|\overline X-\mu|\ge\varepsilon)\le2\exp(-2n\varepsilon^2)$。
+### $\it 4.4$ Bernstein 不等式
+设 $X_1, X_2, \cdots, X_n$ 是独立的随机变量，满足 $E(X_i)=0$，且存在常数 $M>0$ 使得 $|X_i|\le M$。令 $S=\sum\limits_{i=1}^nX_i$ 以及 $\sigma^2=\sum\limits_{i=1}^n\mathrm{Var}(X_i)$，那么对任意 $t>0$，有：
+$$
+P(|S|\ge t)\le2\exp\left( -\dfrac{t^2}{2(\sigma^2+\frac13Mt)} \right)
+$$
+Bernstein 不等式是比 Hoeffding 不等式更“紧”的存在，两者都远强于 Chebyshev 不等式的结论。
+### $\it N$ 小结
+有关 LLN 与 CLT 的联系：LLN 描述的是样本均值依概率收敛到期望（弱大数定律），而 CLT 描述的是样本均值标准化后的分布收敛到正态分布，二者都刻画了平均值的极限行为，但结论的强弱与刻画层面不同。
