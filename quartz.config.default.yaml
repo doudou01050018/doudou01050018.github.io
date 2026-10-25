@@ -102,6 +102,8 @@ plugins:
     enabled: true
     options: 
       body: '"Noto Serif SC", sans-serif'
+      header: '"Noto Serif SC", sans-serif'
+      code: '"Cascadia Mono", monospace'
   - source: "@quartz-themes/core"
     enabled: false
     options:
