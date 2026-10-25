@@ -2,7 +2,7 @@
 publish: true
 ---
 
-# LM-3 First Order Logic(1) 一阶逻辑 第一部分
+# LM-3 FOL(1)
 ### $\it 0.1$ Intro
 在命题逻辑中，语法和语义的界限是十分模糊的，这是因为命题逻辑的结构太简单了，而在一阶逻辑中，这两者将出现明显的分化。
 
@@ -21,16 +21,18 @@ Def. **Languages and formulas**. A FOL language use following symbols(Basic char
 - A **countably infinite** collection of variables $V=\{v_i\mid i\in\mathbb N\}$. (Usually written as $x, y, z$).
 - equation: `=`.
 - **Quantifiers**: `\forall` and `\exists`.
+- Non-logical symbols: 
+	1. A collection of function symbols $f$, each with a fixed arity.
+	2. A collection of relation symbols $R$, each with a fixed arity.
+	3. A collection of constant symbols $c$.
 
-Non-logical symbols: 
-1. A collection of function symbols, each with a fixed arity.
-2. A collection of relation symbols, each with a fixed arity.
-3. A collection of constant symbols.
-
-Then $\mathcal L=\{f_i\mid i\in I\}\cup\{R_j\mid j\in J\}\cup\{c_k\mid k\in K\}$.
+Then $\mathcal L=\{f_i\mid i\in I\}\cup\{R_j\mid j\in J\}\cup\{c_k\mid k\in K\}$ formally describes the language.
 - 注意：这里的 $f, R, c$ 仅停留在符号的层面，$f(x, y)$ 这样的表达仅仅是写法，负责提供含义（其具体映射到什么值）是语义负责的部分。
+- Also: $\{v_i\mid i\in\mathbb N\}$ such variables need **NO** preliminary note. We write $x, y, z, \cdots$ for them.
+- Note: Language $\mathcal L$ is the border of FOL syntax. It defines what you can describe with such symbols.
+- Note: $I, J, K$ need not to be countable. Their cardinalities can be arbitrary.
 
-Def. **Terms**. Let $\mathcal L$ be a FOL. the $\mathcal L$-terms are defined recursively:
+Def. **Terms**. Let $\mathcal L$ be a First-Order-Language. the $\mathcal L$-terms are defined recursively:
 1. Every variable and every constant symbol is a term.
 2. If $t_1, t_2, \cdots, t_n$ are terms and $f$ is an $n$-ary function symbol, then $f(t_1, t_2, \cdots, t_n)$ is a term.
 3. Only strings obtained by finitely steps are terms.
@@ -38,12 +40,14 @@ Def. **Terms**. Let $\mathcal L$ be a FOL. the $\mathcal L$-terms are defined re
 Def. **Atomic Formulas**. An atomic formula of $\mathcal L$ is an expression of one of the following forms:
 - $t_1=t_2$, where $t_1$ and $t_2$ are terms.
 - $R(t_1, t_2, \cdots, t_n)$, where $R$ is an $n$-ary relation symbol and $t_1, t_2, \cdots, t_n$ are terms.
+- Note: This is where things become "boolean", though there is no such semantic word "boolean". But learning FOL requires one to understand syntaxes in some semantic way.
 
 Def. **$\mathcal L$-Formulas**. The $\mathcal L$-formulas are define recursively:
 1. Every atomic $L$-formula is a formula.
 2. If $\varphi$ and $\psi$ are formulas, then $(\neg\varphi), (\varphi\land\psi), (\varphi\lor\psi), (\varphi\to\psi)$ are  formulas.
 3. If $\varphi$ is a formula and $x$ is a variable, then $\forall x\varphi$ and $\exists x\varphi$ are formulas.
 - 到此为止我们仍然在规范化语法规则，其层次可以分为**项**与公式。其中项对应的是由原子变量（一开始的 $v_i$）经过一些 $f$ 得到的，代表仍然是变量的部分；而公式是即将被解释为布尔值的部分（其定义也是递归的）。
+	- And, formulas can also be regarded as ${\mathrm{variable}}^n\to\mathrm{bool}$ functions where the input are exactly free variables(precisely, in a structure).
 
 Def. **Free Variables**. Let $\varphi$ be an $\mathcal L$-formula and $x$ a variable. We define what is means for $x$ to **occur freely** in $\varphi$ recursively:
 1. If $\varphi$ is atomic, then $x$ occurs freely in $\varphi$ **iff** $x$ appears in $\varphi$.
@@ -61,7 +65,7 @@ Def. **Sentence**. An $\mathcal L$-formula is a sentence if it has no free varia
 Let $\mathcal L=\{f_i\mid i\in I\}\cup\{R_j\mid j\in J\}\cup\{c_k\mid k\in K\}$ as a language.
 
 Def. **$\mathcal L$-Structure**. An $\mathcal L$-structure, also called an $\mathcal L$-model, is a tuple $M=(A; (f_i^M)_{i\in I}, (R_j^M)_{j\in J}, (c_k^M)_{k\in K})$ consisting of a non-empty set $A$, called the **universe**, and an interpretation of each non-logical symbol:
-1. For each $n$-nary function symbol $f_i$, a function $f_i^M:A^n\to A$.
+1. For each $n$-ary function symbol $f_i$, a function $f_i^M:A^n\to A$.
 2. For each $n$-ary relation symbol $R_j$, a relation $R_j^M\subseteq A^n$. (Also, $A^n\to\{\mathrm T, \mathrm F\}$ from my own perspective)
 3. For each constant symbol $c_k$, an element $c_k^M\in A$.
 - 从这里开始，进入语义的解释部分。具体来说，语义描述了一种针对 $\mathcal L$-语言的“编译”方案（也就是编译器），其规定世界的元素的集合是 $A$，并定义了 $A$ 元素之间的转移关系（$f$ 函数以及 $R$ 关系判定）。同一语言不同的模型就好比 C++ 不同版本的编译器一样。
@@ -109,7 +113,10 @@ This is very important since the definition is very complex. We divide the induc
 2. Atomic formulas. $R(t_1, t_2, \cdots, t_n)\to R^M(\overline s(t_1), \overline s(t_2), \cdots, \overline s(t_n))$. And $[t_1=t_2]\to[\overline s(t_1)=\overline s(t_2)]$.
 3. Boolean rules. $\varphi\otimes\theta\to\varphi^M\otimes\theta^M$.
 4. **Quantifiers**. $\forall x\varphi\to\forall x\varphi^M$.
-## $\mathrm{II}$ Isomrophism
+
+To help understanding:
+- Let $\mathcal L=\{\le; 3\}$. Let $M=(\mathbb N; \le^{\mathbb N}, 3^{\mathbb N})$. Then we can have a sentence $\varphi(x)=[x\le 3]$ where $x$ is a free variable. Thus $D=\{0, 1, 2, 3\}$ is definable.
+## $\mathrm{II}$ Isomorphism
 ### $\it 2.1$ Definition
 Def. **Isomorphism**. Let $M_1=(A_1; \cdots)$ and $M_2=(A_2; \cdots)$ be $\mathcal L$-structures. An isomorphism from $M_1$ to $M_2$ is a bijection $G:A_1\to A_2$ satisfying:
 1. For each $n$-ary function-symbol $f$ and each $\mathbf a=(a_1, a_2, \cdots, a_n)\in A_1^n$, we have $G(f^{M_1}(\mathbf a))=f^{M_2}(G(\mathbf a))$.
