@@ -103,7 +103,7 @@ plugins:
     options: 
       body: '"Noto Serif SC", sans-serif'
       header: '"Noto Serif SC", sans-serif'
-      code: '"Fira Code", monospace'
+      code: '"Cascadia Mono", monospace'
   - source: "@quartz-themes/core"
     enabled: false
     options:
